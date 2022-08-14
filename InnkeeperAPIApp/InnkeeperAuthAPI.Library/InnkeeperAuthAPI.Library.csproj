@@ -50,10 +50,10 @@
     <Compile Include="DataAccess\UserData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
