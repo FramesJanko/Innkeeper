@@ -14,12 +14,12 @@ namespace InnkeeperAuthAPI.Controllers
     public class UserController : ApiController
     {
         // GET: api/User
-        public List<UserModel> GetById()
+        public UserModel GetById()
         {
             string id = RequestContext.Principal.Identity.GetUserId();
             UserData data = new UserData();
 
-            return data.GetUserById(id);
+            return data.GetUserById(id).First();
             
         }
 

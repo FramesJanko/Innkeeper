@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnkeeperAuthAPI.Library", 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "InnkeeperData", "InnkeeperData\InnkeeperData.sqlproj", "{7CF023C1-B8BC-4BED-B612-A57724E46612}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InnkeeperWPFUserInterface.Library", "InnkeeperWPFUserInterface.Library\InnkeeperWPFUserInterface.Library.csproj", "{75979ECF-82CE-4256-A03E-7E22E4895900}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{7CF023C1-B8BC-4BED-B612-A57724E46612}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CF023C1-B8BC-4BED-B612-A57724E46612}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7CF023C1-B8BC-4BED-B612-A57724E46612}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{75979ECF-82CE-4256-A03E-7E22E4895900}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75979ECF-82CE-4256-A03E-7E22E4895900}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75979ECF-82CE-4256-A03E-7E22E4895900}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75979ECF-82CE-4256-A03E-7E22E4895900}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

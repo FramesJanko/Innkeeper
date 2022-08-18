@@ -58,6 +58,8 @@ namespace InnkeeperWPFUserInterface.ViewModels
         public async Task LogIn()
         {
             var result = await _apiHelper.Authenticate(UserName, Password);
+
+            //capture more information about the user
         }
 
 
