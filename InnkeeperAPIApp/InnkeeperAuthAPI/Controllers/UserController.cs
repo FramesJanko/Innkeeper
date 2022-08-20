@@ -14,6 +14,7 @@ namespace InnkeeperAuthAPI.Controllers
     public class UserController : ApiController
     {
         // GET: api/User
+        [HttpGet]
         public UserModel GetById()
         {
             string id = RequestContext.Principal.Identity.GetUserId();

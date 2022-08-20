@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using InnkeeperWPFUserInterface.Helpers;
+using InnkeeperWPFUserInterface.Library.API;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,33 @@ namespace InnkeeperWPFUserInterface.ViewModels
             }
         }
 
+        private string _errorMessage;
+
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set 
+            { 
+                _errorMessage = value;
+                NotifyOfPropertyChange(() => ErrorMessage);
+                NotifyOfPropertyChange(() => IsErrorVisible);
+            }
+        }
+
+        public bool IsErrorVisible
+        {
+            get 
+            {
+                bool output = false;
+                if(ErrorMessage?.Length > 0)
+                {
+                    output = true;
+                }
+                return output; 
+            }
+            
+        }
+
 
         public string Password
         {
@@ -57,9 +85,19 @@ namespace InnkeeperWPFUserInterface.ViewModels
 
         public async Task LogIn()
         {
-            var result = await _apiHelper.Authenticate(UserName, Password);
+            try
+            {
+                ErrorMessage = "";
+                var result = await _apiHelper.Authenticate(UserName, Password);
 
-            //capture more information about the user
+                //capture more information about the user
+                await _apiHelper.GetLoggedInUser(result.Access_Token);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+            
         }
 
 

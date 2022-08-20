@@ -1,5 +1,7 @@
 ﻿using Caliburn.Micro;
 using InnkeeperWPFUserInterface.Helpers;
+using InnkeeperWPFUserInterface.Library.API;
+using InnkeeperWPFUserInterface.Library.Models;
 using InnkeeperWPFUserInterface.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,7 +33,8 @@ namespace InnkeeperWPFUserInterface
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
-                .Singleton<IAPIHelper, APIHelper>();
+                .Singleton<IAPIHelper, APIHelper>()
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>();
             
 
             GetType().Assembly.GetTypes()
