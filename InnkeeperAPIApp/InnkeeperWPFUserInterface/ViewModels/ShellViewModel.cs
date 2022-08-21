@@ -10,10 +10,11 @@ namespace InnkeeperWPFUserInterface.ViewModels
     public class ShellViewModel : Conductor<object>
     {
         private LoginViewModel _loginVM;
-        public ShellViewModel(LoginViewModel loginVM)
+        private HomeViewModel _homeVM;
+        public ShellViewModel(HomeViewModel homeVM)
         {
-            _loginVM = loginVM;
-            ActivateItemAsync(_loginVM);
+            _homeVM = homeVM;
+            ActivateItemAsync(_homeVM);
         }
     }
 }
