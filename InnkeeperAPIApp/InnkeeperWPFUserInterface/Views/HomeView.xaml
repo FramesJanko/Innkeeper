@@ -33,14 +33,14 @@
                 Width="150" x:Name="EditCharacter" Content="Edit" Margin="20 0" />
         <Button Grid.Row="3" Grid.Column="2" Height="35" 
                 Width="150" x:Name="DeleteCharacter" Content="Delete" Margin="20 0" />
-        <DockPanel Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" 
-                   Grid.RowSpan="5" Margin="10" MaxWidth="250">
+        <DockPanel x:Name="AddCharacterPane"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" 
+                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="Visible">
             <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="0">
                 <DockPanel LastChildFill="False"  MinHeight="200" MinWidth="100" 
                    Background="WhiteSmoke">
-
                     <Grid DockPanel.Dock="Top" MinHeight="150" MinWidth="100">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -52,21 +52,133 @@
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" 
+                        <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5" 
                            Fill="DarkGray" Height="100" Width="100"/>
-                        <TextBlock FontSize="16" Grid.Row="0" Grid.Column="2" 
-                           Grid.ColumnSpan="3" Text="What if the text is longer way longer than this" 
-                           Margin="10" TextWrapping="Wrap"/>
-
+                        <DockPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Margin="0 0 5 0">
+                            <TextBox x:Name="AddName"  DockPanel.Dock="Top" FontSize="18" MaxWidth="200" Text="Name" TextWrapping="Wrap"/>
+                            <TextBox x:Name="AddLevel" DockPanel.Dock="Left" FontSize="16" Text="Level" 
+                           Margin="0 1 5 0" />
+                            <TextBox x:Name="AddRace" DockPanel.Dock="Left" FontSize="16" Text="Race" MaxWidth="100" TextWrapping="Wrap" 
+                           Margin="0 1 5 0" />
+                            <TextBox x:Name="AddClass" DockPanel.Dock="Left" FontSize="16" Text="Class" MaxWidth="100" TextWrapping="Wrap"
+                           Margin="0 1 0 0"/>
+                        </DockPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Vertical">
+                            <TextBox x:Name="AddAC" FontSize="14" Text="Armor Class" 
+                           TextWrapping="Wrap" />
+                            <TextBox x:Name="AddHP" FontSize="14" Text="Hit Points" 
+                           Margin="0" TextWrapping="Wrap"/>
+                            <TextBox x:Name="AddSpeed" FontSize="14" Text="Speed" MaxWidth="150" 
+                           Margin="0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
+                            <TextBlock x:Name="AddStatsTitle" FontSize="14" Text="Ability Scores" HorizontalAlignment="Left" Margin="5 0 5 0" />
+                            <TextBox x:Name="AddStatStr" FontSize="12" Text="Strength" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBox x:Name="AddStatDex" FontSize="12" Text="Dexterity" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBox x:Name="AddStatCon" FontSize="12" Text="Constitution" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBox x:Name="AddStatInt" FontSize="12" Text="Intelligence" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBox x:Name="AddStatWis" FontSize="12" Text="Wisdom" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBox x:Name="AddStatCha" FontSize="12" Text="Charisma" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
+                            <TextBlock x:Name="AddStatSaves" FontSize="14" Text="Saves" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddStatStrSave" FontSize="12" Text="Str Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddStatDexSave" FontSize="12" Text="Dex Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddStatConSave" FontSize="12" Text="Con Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddStatIntSave" FontSize="12" Text="Int Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddStatWisSave" FontSize="12" Text="Wis Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddStatChaSave" FontSize="12" Text="Cha Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
+                            <TextBlock x:Name="AddSkills" FontSize="14" Text="Skills" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBox x:Name="AddSkill1" FontSize="12" Text="Skill" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <Button x:Name="RemoveLastSKill" FontSize="12" Height="18" Content="Remove Last Skill" Width="100" HorizontalAlignment="Left" Margin="5 3 0 0" Padding="0" />
+                        </StackPanel>
+                        <Button x:Name="AddNewSKill" Grid.Row="3" Grid.Column="2" FontSize="12" Height="18" Content="+ Skill" Width="60" HorizontalAlignment="Left" Margin="5 3 0 0" Padding="0" />
+                        <!--<TextBlock FontSize="16" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                           Grid.ColumnSpan="3" Text="Jordan Tutreller" 
+                           Margin="10" TextWrapping="Wrap"/>-->
                     </Grid>
-
-                    <Button DockPanel.Dock="Bottom" x:Name="Button" Content="Button" Background="LightGreen" />
-
+                    <Button DockPanel.Dock="Bottom" x:Name="AddButton" Content="Confirm" Background="LightGreen" />
                 </DockPanel>
             </Border>
         </DockPanel>
-        <Button x:Name="About" Content="About" Grid.Row="5" Grid.Column="5" Width="100" Margin="20"/>
+        <DockPanel x:Name="ViewCharacterPane"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" 
+                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="Collapsed">
+            <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="0">
+                <DockPanel LastChildFill="False"  MinHeight="200" MinWidth="100" 
+                   Background="WhiteSmoke">
+                    <Grid DockPanel.Dock="Top" MinHeight="150" MinWidth="100">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5" 
+                           Fill="DarkGray" Height="100" Width="100"/>
+                        <DockPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Margin="0 0 5 0">
+                            <TextBlock x:Name="ViewName"  DockPanel.Dock="Top" FontSize="18" Text="Jordan Tutreller" />
+                            <TextBlock x:Name="ViewLevel" DockPanel.Dock="Left" FontSize="16" Text="10" 
+                           Margin="0 0 5 0" />
+                            <TextBlock x:Name="ViewRace" DockPanel.Dock="Left" FontSize="16" Text="Human" 
+                           Margin="0 0 5 0" />
+                            <TextBlock x:Name="ViewClass" DockPanel.Dock="Left" FontSize="16" Text="Paladin" 
+                           Margin="0"/>
+                        </DockPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Vertical">
+                            <TextBlock x:Name="ViewAC" FontSize="14" Text="Armor Class: 20" 
+                           TextWrapping="Wrap"/>
+                            <TextBlock x:Name="ViewHP" FontSize="14" Text="Hit Points: 90" 
+                           Margin="0" TextWrapping="Wrap"/>
+                            <TextBlock x:Name="ViewSpeed" FontSize="14" Text="Speed: 30 ft." 
+                           Margin="0" TextWrapping="Wrap"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
+                            <TextBlock x:Name="ViewStatsTitle" FontSize="14" Text="Ability Scores" HorizontalAlignment="Left" Margin="5 0 5 0" />
+                            <TextBlock x:Name="ViewStatStr" FontSize="12" Text="Str: 18 (+4)" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBlock x:Name="ViewStatDex" FontSize="12" Text="Dex: 10 (+0)" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBlock x:Name="ViewStatCon" FontSize="12" Text="Con: 16 (+3)" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBlock x:Name="ViewStatInt" FontSize="12" Text="Int: 12 (+1)" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBlock x:Name="ViewStatWis" FontSize="12" Text="Wis: 10 (+0)" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                            <TextBlock x:Name="ViewStatCha" FontSize="12" Text="Cha: 16 (+3)" HorizontalAlignment="Left" Margin="10 0 5 0" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
+                            <TextBlock x:Name="ViewStatSaves" FontSize="14" Text="Saves" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="ViewStatStrSave" FontSize="12" Text="+7" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="ViewStatDexSave" FontSize="12" Text="+3" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="ViewStatConSave" FontSize="12" Text="+6" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="ViewStatIntSave" FontSize="12" Text="+4" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="ViewStatWisSave" FontSize="12" Text="+7" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="ViewStatChaSave" FontSize="12" Text="+10" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
+                            <TextBlock x:Name="ViewSkills" FontSize="14" Text="Skills" HorizontalAlignment="Left" Margin="10 0 0 0" />
+                            <TextBlock x:Name="ViewSkill1" FontSize="12" Text="Athletics" HorizontalAlignment="Left" Margin="10 0 0 0" />
+                            <TextBlock x:Name="ViewSkill2" FontSize="12" Text="Insight" HorizontalAlignment="Left" Margin="10 0 0 0" />
+                            <TextBlock x:Name="ViewSkill3" FontSize="12" Text="Persuasion" HorizontalAlignment="Left" Margin="10 0 0 0" />
+                            <TextBlock x:Name="ViewSkill5" FontSize="12" Text="Religion" HorizontalAlignment="Left" Margin="10 0 0 0" />
+                        </StackPanel>
+                        <!--<TextBlock FontSize="16" Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                           Grid.ColumnSpan="3" Text="Jordan Tutreller" 
+                           Margin="10" TextWrapping="Wrap"/>-->
+                    </Grid>
+                </DockPanel>
+            </Border>
+        </DockPanel>
+        <Button x:Name="About" Content="About" Grid.Row="5" Grid.Column="4" Height="35"  Width="100" Margin="20" />
     </Grid>
 </UserControl>
