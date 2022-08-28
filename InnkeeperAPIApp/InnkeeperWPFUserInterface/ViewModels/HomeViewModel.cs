@@ -21,7 +21,6 @@ namespace InnkeeperWPFUserInterface.ViewModels
 				NotifyOfPropertyChange(() => CharacterList);
 			}
 		}
-
 		public bool CanAddCharacter
 		{
 			get

@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using InnkeeperWPFUserInterface.EventModels;
 using InnkeeperWPFUserInterface.Helpers;
 using InnkeeperWPFUserInterface.Library.API;
 using System;
@@ -14,10 +15,12 @@ namespace InnkeeperWPFUserInterface.ViewModels
         private string _userName;
         private string _password;
         private IAPIHelper _apiHelper;
+        private IEventAggregator _events;
 
-        public LoginViewModel(IAPIHelper apiHelper)
+        public LoginViewModel(IAPIHelper apiHelper, IEventAggregator events)
         {
             _apiHelper = apiHelper;
+            _events = events;
         }        
 
         public string UserName
@@ -92,6 +95,8 @@ namespace InnkeeperWPFUserInterface.ViewModels
 
                 //capture more information about the user
                 await _apiHelper.GetLoggedInUser(result.Access_Token);
+
+                await _events.PublishOnUIThreadAsync(new LogOnEvent());
             }
             catch (Exception ex)
             {
