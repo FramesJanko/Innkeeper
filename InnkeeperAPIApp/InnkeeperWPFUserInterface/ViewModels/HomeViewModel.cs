@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using InnkeeperWPFUserInterface.Library.API;
+using InnkeeperWPFUserInterface.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,9 +12,10 @@ namespace InnkeeperWPFUserInterface.ViewModels
 {
     public class HomeViewModel : Screen
     {
-		private BindingList<string> _characterList;
+		private ICharacterEndpoint _characterEndpoint;
+        private BindingList<CharacterModel> _characterList;
 
-		public BindingList<string> CharacterList
+		public BindingList<CharacterModel> CharacterList
 		{
 			get { return _characterList; }
 			set 
@@ -21,6 +24,26 @@ namespace InnkeeperWPFUserInterface.ViewModels
 				NotifyOfPropertyChange(() => CharacterList);
 			}
 		}
+
+        public HomeViewModel(ICharacterEndpoint characterEndpoint)
+        {
+            _characterEndpoint = characterEndpoint;
+            
+        }
+
+        protected async override void OnViewLoaded(object view)
+        {
+            base.OnViewLoaded(view);
+            await LoadCharacters();
+        }
+
+        public async Task LoadCharacters()
+        {
+
+            var characterList = await _characterEndpoint.GetAll();
+            CharacterList = new BindingList<CharacterModel>(characterList);
+        }
+
 		public bool CanAddCharacter
 		{
 			get

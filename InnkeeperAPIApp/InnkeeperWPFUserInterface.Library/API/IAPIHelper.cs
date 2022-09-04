@@ -1,4 +1,5 @@
 ﻿using InnkeeperWPFUserInterface.Library.Models;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace InnkeeperWPFUserInterface.Library.API
@@ -7,5 +8,6 @@ namespace InnkeeperWPFUserInterface.Library.API
     {
         Task<AuthenticatedUser> Authenticate(string username, string password);
         Task GetLoggedInUser(string token);
+        HttpClient ApiClient { get; }
     }
 }

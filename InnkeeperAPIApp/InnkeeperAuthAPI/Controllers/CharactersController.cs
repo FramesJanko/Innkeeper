@@ -4,17 +4,21 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using InnkeeperAuthAPI.Library.DataAccess;
+using InnkeeperAuthAPI.Library.Models;
 using InnkeeperAuthAPI.Models;
 
 
 namespace InnkeeperAuthAPI.Controllers
 {
+    //[Authorize]
     public class CharactersController : ApiController
     {
         // GET api/<controller>
-        public IHttpActionResult Get()
+        public List<CharacterModel> Get()
         {
-            return Ok();
+            CharacterData data = new CharacterData();
+            return data.GetAllCharacters();
         }
 
         // GET api/<controller>/5
