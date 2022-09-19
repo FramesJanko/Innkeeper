@@ -9,5 +9,6 @@ namespace InnkeeperWPFUserInterface.Library.API
         Task<AuthenticatedUser> Authenticate(string username, string password);
         Task GetLoggedInUser(string token);
         HttpClient ApiClient { get; }
+        ILoggedInUserModel LoggedInUser { get; }
     }
 }

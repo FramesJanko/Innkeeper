@@ -13,7 +13,10 @@ namespace InnkeeperWPFUserInterface.ViewModels
     public class HomeViewModel : Screen
     {
 		private ICharacterEndpoint _characterEndpoint;
+        private IStatsEndpoint _statsEndpoint;
         private BindingList<CharacterModel> _characterList;
+        private CharacterModel _selectedCharacter;
+        private BindingList<StatsModel> _statsList;
 
 		public BindingList<CharacterModel> CharacterList
 		{
@@ -25,9 +28,42 @@ namespace InnkeeperWPFUserInterface.ViewModels
 			}
 		}
 
-        public HomeViewModel(ICharacterEndpoint characterEndpoint)
+        public BindingList<StatsModel> StatsList
+        {
+            get { return _statsList; }
+            set 
+            { 
+                _statsList = value;
+                NotifyOfPropertyChange(() => StatsList); 
+            }
+        }
+
+        public CharacterModel SelectedCharacter
+        {
+            get 
+            { 
+                return _selectedCharacter; 
+            }
+            set
+            {
+                _selectedCharacter = value;
+                NotifyOfPropertyChange(() => SelectedCharacter);
+                NotifyOfPropertyChange(() => IsViewCharVisible);
+                NotifyOfPropertyChange(() => ViewName);
+                NotifyOfPropertyChange(() => ViewRace);
+                NotifyOfPropertyChange(() => ViewLevel);
+                NotifyOfPropertyChange(() => ViewClass);
+                NotifyOfPropertyChange(() => ViewHP);
+                NotifyOfPropertyChange(() => ViewAC);
+                NotifyOfPropertyChange(() => ViewSpeed);
+                Console.WriteLine("Selected a character");
+            }
+        }
+
+        public HomeViewModel(ICharacterEndpoint characterEndpoint, IStatsEndpoint statsEndpoint)
         {
             _characterEndpoint = characterEndpoint;
+            _statsEndpoint = statsEndpoint;
             
         }
 
@@ -41,7 +77,11 @@ namespace InnkeeperWPFUserInterface.ViewModels
         {
 
             var characterList = await _characterEndpoint.GetAll();
+            var statsList = await _statsEndpoint.GetStatsForUser();
+            
             CharacterList = new BindingList<CharacterModel>(characterList);
+            StatsList = new BindingList<StatsModel>(statsList);
+
         }
 
 		public bool CanAddCharacter
@@ -56,6 +96,20 @@ namespace InnkeeperWPFUserInterface.ViewModels
 		{
 
 		}
+
+        public bool IsViewCharVisible
+        {
+            get
+            {
+                bool output = false;
+                if (SelectedCharacter != null)
+                {
+                    output = true;
+                }
+                return output;
+            }
+
+        }
 
         public bool CanEditCharacter
         {
@@ -82,6 +136,63 @@ namespace InnkeeperWPFUserInterface.ViewModels
         public void DeleteCharacter()
         {
 
+        }
+        public string ViewName
+        {
+            get 
+            {
+                string viewName = SelectedCharacter != null ? SelectedCharacter.Name : "";
+                return viewName;
+            }
+        }
+        public string ViewLevel
+        {
+            get
+            {
+                string viewLevel = SelectedCharacter != null ? SelectedCharacter.Level.ToString() : "";
+                return viewLevel;
+            }
+        }
+        public string ViewRace
+        {
+            get
+            {
+                string viewRace = SelectedCharacter != null ? SelectedCharacter.Race : "";
+                return viewRace;
+            }
+        }
+        public string ViewClass
+        {
+            get
+            {
+                string viewClass = SelectedCharacter != null ? $"Level {SelectedCharacter.CharacterClass}" : "";
+                return viewClass;
+            }
+        }
+        public string ViewHP
+        {
+            get
+            {
+                int health = SelectedCharacter != null ? SelectedCharacter.Level * 4 + 8 : 0;
+                string viewHP = SelectedCharacter != null ? $"Hit Points: {health}" : "";
+                return viewHP;
+            }
+        }
+        public string ViewAC
+        {
+            get
+            {
+                string viewAC = SelectedCharacter != null ? "Armor Class: 10" : "";
+                return viewAC;
+            }
+        }
+        public string ViewSpeed
+        {
+            get
+            {
+                string viewClass = SelectedCharacter != null ? "Speed: 30 ft." : "";
+                return viewClass;
+            }
         }
     }
 }

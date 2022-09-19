@@ -29,7 +29,8 @@ namespace InnkeeperWPFUserInterface
         protected override void Configure()
         {
             _container.Instance(_container)
-                .PerRequest<ICharacterEndpoint, CharacterEndpoint>();
+                .PerRequest<ICharacterEndpoint, CharacterEndpoint>()
+                .PerRequest<IStatsEndpoint, StatsEndpoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()

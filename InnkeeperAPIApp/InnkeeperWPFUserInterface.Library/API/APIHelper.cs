@@ -22,6 +22,11 @@ namespace InnkeeperWPFUserInterface.Library.API
 
         }
 
+        public ILoggedInUserModel LoggedInUser
+        {
+            get { return _loggedInUser; }
+        }
+
         public HttpClient ApiClient 
         {
             get 
