@@ -55,9 +55,11 @@
     <Compile Include="API\IStatsEndpoint.cs" />
     <Compile Include="API\StatsEndpoint.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
+    <Compile Include="Models\CharacterClass.cs" />
     <Compile Include="Models\CharacterModel.cs" />
     <Compile Include="Models\ILoggedInUserModel.cs" />
     <Compile Include="Models\LoggedInUserModel.cs" />
+    <Compile Include="Models\SavingThrowModel.cs" />
     <Compile Include="Models\StatsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
