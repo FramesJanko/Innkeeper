@@ -18,5 +18,22 @@ namespace InnkeeperAuthAPI.Library.DataAccess
 
             return output;
         }
+
+        public void PostCharacter(CharacterModel characterModel)
+        {
+            using (SqlDataAccess sql = new SqlDataAccess())
+            {
+                try
+                {
+                    sql.StartTransaction("azureInnkeeperData");
+                    sql.SaveDataInTransaction("dbo.spInsertCharacter", characterModel);
+
+                }
+                catch
+                {
+
+                }
+            }
+        }
     }
 }

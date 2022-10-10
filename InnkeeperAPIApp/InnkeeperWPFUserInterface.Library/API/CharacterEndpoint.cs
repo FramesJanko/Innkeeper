@@ -32,5 +32,10 @@ namespace InnkeeperWPFUserInterface.Library.API
                 }
             }
         }
+
+        public async Task<CharacterModel> Post(CharacterModel characterModel)
+        {
+            return characterModel;
+        }
     }
 }

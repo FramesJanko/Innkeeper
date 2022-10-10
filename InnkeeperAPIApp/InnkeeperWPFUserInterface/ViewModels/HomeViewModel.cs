@@ -53,6 +53,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
                     if(StatsList[i].Id == SelectedCharacter.StatsId)
                         SelectedStats = StatsList[i];
                 }
+
                 NotifyOfPropertyChange(() => SelectedCharacter);
                 NotifyOfPropertyChange(() => IsViewCharVisible);
                 NotifyOfPropertyChange(() => ViewName);
@@ -303,7 +304,9 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 {
                     strSave = (int)Math.Ceiling(Math.Abs(strSaveBeforeRounding));
                 }
-                string strSaveSign = isPositive ? "+ " : "- ";
+                if ("StrengthSave" == SelectedCharacter?.CharacterClassName.SavingThrow1 || "StrengthSave" == SelectedCharacter?.CharacterClassName.SavingThrow2)
+                    strSave += SelectedCharacter.ProficiencyBonus;
+                string strSaveSign = (strSave >= 0) ? "+ " : "- ";
                 string strSaveModifier = SelectedCharacter != null ? $"{strSave}" : "";
                 string viewStatStrSave = strSaveSign + strSaveModifier;
                 return viewStatStrSave;
@@ -324,9 +327,12 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 {
                     save = (int)Math.Ceiling(Math.Abs(saveBeforeRounding));
                 }
-                string saveSign = isPositive ? "+ " : "- ";
+                if ("DexteritySave" == SelectedCharacter?.CharacterClassName.SavingThrow1 || "DexteritySave" == SelectedCharacter?.CharacterClassName.SavingThrow2)
+                    save += SelectedCharacter.ProficiencyBonus;
+                string saveSign = (save >= 0) ? "+ " : "- ";
                 string saveModifier = SelectedCharacter != null ? $"{save}" : "";
                 string viewStatDexSave = saveSign + saveModifier;
+                
                 return viewStatDexSave;
             }
         }
@@ -345,7 +351,9 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 {
                     save = (int)Math.Ceiling(Math.Abs(saveBeforeRounding));
                 }
-                string saveSign = isPositive ? "+ " : "- ";
+                if ("ConstitutionSave" == SelectedCharacter?.CharacterClassName.SavingThrow1 || "ConstitutionSave" == SelectedCharacter?.CharacterClassName.SavingThrow2)
+                    save += SelectedCharacter.ProficiencyBonus;
+                string saveSign = (save >= 0) ? "+ " : "- ";
                 string saveModifier = SelectedCharacter != null ? $"{save}" : "";
                 string viewStatConSave = saveSign + saveModifier;
                 return viewStatConSave;
@@ -366,7 +374,9 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 {
                     save = (int)Math.Ceiling(Math.Abs(saveBeforeRounding));
                 }
-                string saveSign = isPositive ? "+ " : "- ";
+                if ("IntelligenceSave" == SelectedCharacter?.CharacterClassName.SavingThrow1 || "IntelligenceSave" == SelectedCharacter?.CharacterClassName.SavingThrow2)
+                    save += SelectedCharacter.ProficiencyBonus;
+                string saveSign = (save >= 0) ? "+ " : "- ";
                 string saveModifier = SelectedCharacter != null ? $"{save}" : "";
                 string viewStatIntSave = saveSign + saveModifier;
                 return viewStatIntSave;
@@ -387,7 +397,9 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 {
                     save = (int)Math.Ceiling(Math.Abs(saveBeforeRounding));
                 }
-                string saveSign = isPositive ? "+ " : "- ";
+                if ("WisdomSave" == SelectedCharacter?.CharacterClassName.SavingThrow1 || "WisdomSave" == SelectedCharacter?.CharacterClassName.SavingThrow2)
+                    save += SelectedCharacter.ProficiencyBonus;
+                string saveSign = (save >= 0) ? "+ " : "- ";
                 string saveModifier = SelectedCharacter != null ? $"{save}" : "";
                 string viewStatWisSave = saveSign + saveModifier;
                 return viewStatWisSave;
@@ -408,7 +420,9 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 {
                     save = (int)Math.Ceiling(Math.Abs(saveBeforeRounding));
                 }
-                string saveSign = isPositive ? "+ " : "- ";
+                if ("CharismaSave" == SelectedCharacter?.CharacterClassName.SavingThrow1 || "CharismaSave" == SelectedCharacter?.CharacterClassName.SavingThrow2)
+                    save += SelectedCharacter.ProficiencyBonus;
+                string saveSign = (save >= 0) ? "+ " : "- ";
                 string saveModifier = SelectedCharacter != null ? $"{save}" : "";
                 string viewStatChaSave = saveSign + saveModifier;
                 return viewStatChaSave;

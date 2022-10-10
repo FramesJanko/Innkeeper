@@ -17,5 +17,36 @@ namespace InnkeeperWPFUserInterface.Library.Models
         public int StatsId { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+        private CharacterClass _characterClassName;
+        public CharacterClass CharacterClassName 
+        {
+            get
+            {
+                _characterClassName = new CharacterClass(CharacterClass);
+                return _characterClassName;
+            }
+            set
+            {
+                _characterClassName = value;
+            }
+        }
+
+        private int _proficiencyBonus;
+
+        public int ProficiencyBonus 
+        {
+            get
+            {
+                int proficiency = 2;
+                _proficiencyBonus = proficiency + ((Level - 1) / 4);
+                return _proficiencyBonus;
+            }
+            set
+            {
+                _proficiencyBonus = value;
+            }
+        }
+
+        
     }
 }
