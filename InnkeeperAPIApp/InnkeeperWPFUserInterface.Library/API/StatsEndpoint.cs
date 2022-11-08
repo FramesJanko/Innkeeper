@@ -32,5 +32,20 @@ namespace InnkeeperWPFUserInterface.Library.API
                 }
             }
         }
+
+        public async Task PostStats(StatsModel statsModel)
+        {
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Stats", statsModel))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

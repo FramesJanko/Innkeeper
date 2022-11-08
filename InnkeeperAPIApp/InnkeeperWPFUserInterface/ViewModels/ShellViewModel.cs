@@ -13,16 +13,14 @@ namespace InnkeeperWPFUserInterface.ViewModels
     {
         private HomeViewModel _homeVM;
         private IEventAggregator _events;
-        private SimpleContainer _container;
 
-        public ShellViewModel(HomeViewModel homeVM, IEventAggregator events, SimpleContainer container)
+        public ShellViewModel(HomeViewModel homeVM, IEventAggregator events)
         {
             _homeVM = homeVM;
             _events = events;
-            _container = container;
 
             _events.SubscribeOnPublishedThread(this);
-            ActivateItemAsync(_container.GetInstance<LoginViewModel>());
+            ActivateItemAsync(IoC.Get<LoginViewModel>());
         }
 
         public Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)

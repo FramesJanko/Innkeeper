@@ -12,14 +12,22 @@ namespace InnkeeperWPFUserInterface.ViewModels
 {
     public class HomeViewModel : Screen
     {
-		private ICharacterEndpoint _characterEndpoint;
+		private IAPIHelper _apiHelper;
+        private ICharacterEndpoint _characterEndpoint;
         private IStatsEndpoint _statsEndpoint;
         private BindingList<CharacterModel> _characterList;
         private CharacterModel _selectedCharacter;
         private BindingList<StatsModel> _statsList;
         private StatsModel _selectedStats;
         private int _proficiencyBonus;
-		public BindingList<CharacterModel> CharacterList
+        private string _addName;
+        private int _addLevel;
+        private string _addRace;
+        private string _addClass;
+        private int _addAC;
+        private int _addHP;
+
+        public BindingList<CharacterModel> CharacterList
 		{
 			get { return _characterList; }
 			set 
@@ -48,9 +56,10 @@ namespace InnkeeperWPFUserInterface.ViewModels
             set
             {
                 _selectedCharacter = value;
+
                 for (int i = 0; i < StatsList.Count; i++)
                 {
-                    if(StatsList[i].Id == SelectedCharacter.StatsId)
+                    if(SelectedCharacter != null && StatsList[i].Id == SelectedCharacter.StatsId)
                         SelectedStats = StatsList[i];
                 }
 
@@ -106,11 +115,11 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 NotifyOfPropertyChange(() => ProficiencyBonus);
             }
         }
-        public HomeViewModel(ICharacterEndpoint characterEndpoint, IStatsEndpoint statsEndpoint)
+        public HomeViewModel(ICharacterEndpoint characterEndpoint, IStatsEndpoint statsEndpoint, IAPIHelper apiHelper)
         {
             _characterEndpoint = characterEndpoint;
             _statsEndpoint = statsEndpoint;
-            
+            _apiHelper = apiHelper;
         }
 
         protected async override void OnViewLoaded(object view)
@@ -141,8 +150,21 @@ namespace InnkeeperWPFUserInterface.ViewModels
 		}
 		public void AddCharacter()
 		{
+            SelectedCharacter = null;
 
 		}
+
+        public bool IsAddCharVisible
+        {
+            get
+            {
+                bool output = false;
+                if (SelectedCharacter == null)
+                    output = true;
+
+                return output;
+            }
+        }
 
         public bool IsViewCharVisible
         {
@@ -183,6 +205,16 @@ namespace InnkeeperWPFUserInterface.ViewModels
         public void DeleteCharacter()
         {
 
+        }
+        public async Task AddButton()
+        {
+            CharacterModel character = new CharacterModel();
+            character.Name = AddName;
+            character.CharacterClass = AddClass;
+            character.Race = AddRace;
+            character.Level = AddLevel;
+            character.UserId = _apiHelper.LoggedInUser.Id;
+            await _characterEndpoint.PostCharacter(character);
         }
         public string ViewName
         {
@@ -428,5 +460,81 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 return viewStatChaSave;
             }
         }
+        public string AddName
+        {
+            get
+            {
+                return _addName;
+            }
+            set
+            {
+                if(value.Length > 0 || value.Length <= 50)
+                    _addName = value;
+                NotifyOfPropertyChange(() => _addName);
+            }
+        }
+        public int AddLevel
+        {
+            get
+            {
+                return _addLevel;
+            }
+            set
+            {
+                _addLevel = value;
+                NotifyOfPropertyChange(() => _addLevel);
+            }
+        }
+        public string AddRace
+        {
+            get
+            {
+                return _addRace;
+            }
+            set
+            {
+                if (value.Length > 0 || value.Length <= 50)
+                    _addRace = value;
+                NotifyOfPropertyChange(() => _addRace);
+            }
+        }
+        public string AddClass
+        {
+            get
+            {
+                return _addClass;
+            }
+            set
+            {
+                if (value.Length > 0 || value.Length <= 50)
+                    _addClass = value;
+                NotifyOfPropertyChange(() => _addClass);
+            }
+        }
+        public int AddAC
+        {
+            get
+            {
+                return _addAC;
+            }
+            set
+            {
+                _addAC = value;
+                NotifyOfPropertyChange(() => _addAC);
+            }
+        }
+        public int AddHP
+        {
+            get
+            {
+                return _addHP;
+            }
+            set
+            {
+                _addHP = value;
+                NotifyOfPropertyChange(() => _addHP);
+            }
+        }
+
     }
 }

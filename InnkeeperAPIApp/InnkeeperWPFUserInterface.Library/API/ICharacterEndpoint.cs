@@ -7,5 +7,6 @@ namespace InnkeeperWPFUserInterface.Library.API
     public interface ICharacterEndpoint
     {
         Task<List<CharacterModel>> GetAll();
+        Task PostCharacter(CharacterModel characterModel);
     }
 }

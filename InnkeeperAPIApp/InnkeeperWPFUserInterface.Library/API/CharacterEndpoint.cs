@@ -33,9 +33,19 @@ namespace InnkeeperWPFUserInterface.Library.API
             }
         }
 
-        public async Task<CharacterModel> Post(CharacterModel characterModel)
+        public async Task PostCharacter(CharacterModel characterModel)
         {
-            return characterModel;
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Characters", characterModel))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
         }
     }
 }

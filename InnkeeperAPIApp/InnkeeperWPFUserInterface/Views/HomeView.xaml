@@ -40,7 +40,7 @@
         <Button Grid.Row="3" Grid.Column="2" Height="35" 
                 Width="150" x:Name="DeleteCharacter" Content="Delete" Margin="20 0" />
         <DockPanel x:Name="AddCharacterPane"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" 
-                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="Collapsed">
+                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="{Binding IsAddCharVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="0">
                 <DockPanel LastChildFill="False"  MinHeight="200" MinWidth="100" 
                    Background="WhiteSmoke">
@@ -91,12 +91,12 @@
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
                             <TextBlock x:Name="AddStatSaves" FontSize="14" Text="Saves" HorizontalAlignment="Left" Margin="5 0 0 0" />
-                            <TextBox x:Name="AddStatStrSave" FontSize="12" Text="Str Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
-                            <TextBox x:Name="AddStatDexSave" FontSize="12" Text="Dex Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
-                            <TextBox x:Name="AddStatConSave" FontSize="12" Text="Con Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
-                            <TextBox x:Name="AddStatIntSave" FontSize="12" Text="Int Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
-                            <TextBox x:Name="AddStatWisSave" FontSize="12" Text="Wis Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
-                            <TextBox x:Name="AddStatChaSave" FontSize="12" Text="Cha Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="AddStatStrSave" FontSize="12" Text="Str Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="AddStatDexSave" FontSize="12" Text="Dex Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="AddStatConSave" FontSize="12" Text="Con Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="AddStatIntSave" FontSize="12" Text="Int Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="AddStatWisSave" FontSize="12" Text="Wis Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
+                            <TextBlock x:Name="AddStatChaSave" FontSize="12" Text="Cha Save" HorizontalAlignment="Left" Margin="5 0 0 0" />
                         </StackPanel>
                         <StackPanel Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Orientation="Vertical" Margin="0 0 0 10">
                             <TextBlock x:Name="AddSkills" FontSize="14" Text="Skills" HorizontalAlignment="Left" Margin="5 0 0 0" />

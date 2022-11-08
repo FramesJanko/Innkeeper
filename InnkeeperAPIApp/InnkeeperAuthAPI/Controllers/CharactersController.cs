@@ -28,8 +28,9 @@ namespace InnkeeperAuthAPI.Controllers
         }
 
         // POST api/<controller>
-        public void Post([FromBody] string value)
+        public void Post(CharacterModel character)
         {
+            Console.WriteLine();
         }
 
         // PUT api/<controller>/5
@@ -40,6 +41,7 @@ namespace InnkeeperAuthAPI.Controllers
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+
         }
     }
 }

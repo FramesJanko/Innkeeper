@@ -25,8 +25,9 @@ namespace InnkeeperAuthAPI.Controllers
         }
 
         // POST: api/Stats
-        public void Post([FromBody]string value)
+        public void Post(StatsModel stats)
         {
+
         }
 
         // PUT: api/Stats/5
