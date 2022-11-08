@@ -27,7 +27,8 @@ namespace InnkeeperAuthAPI.Controllers
         // POST: api/Stats
         public void Post(StatsModel stats)
         {
-
+            StatsData data = new StatsData();
+            data.PostStats(stats);
         }
 
         // PUT: api/Stats/5

@@ -26,6 +26,13 @@ namespace InnkeeperWPFUserInterface.ViewModels
         private string _addClass;
         private int _addAC;
         private int _addHP;
+        private int _addSpeed;
+        private int _addStatStr;
+        private int _addStatDex;
+        private int _addStatCon;
+        private int _addStatInt;
+        private int _addStatWis;
+        private int _addStatCha;
 
         public BindingList<CharacterModel> CharacterList
 		{
@@ -214,7 +221,22 @@ namespace InnkeeperWPFUserInterface.ViewModels
             character.Race = AddRace;
             character.Level = AddLevel;
             character.UserId = _apiHelper.LoggedInUser.Id;
-            await _characterEndpoint.PostCharacter(character);
+            StatsModel stats = new StatsModel();
+            stats.Strength = AddStatStr;
+            stats.Dexterity = AddStatDex;
+            stats.Constitution = AddStatCon;
+            stats.Intelligence = AddStatInt;
+            stats.Wisdom = AddStatWis;
+            stats.Charisma = AddStatCha;
+            stats.Speed = AddSpeed;
+            stats.ArmorClass = AddAC;
+            stats.Health = AddHP;
+            stats.UserId = _apiHelper.LoggedInUser.Id;
+            stats.CreatedDate = DateTime.Now;
+            CombinedCharacterStats combined = new CombinedCharacterStats();
+            combined.character = character;
+            combined.stats = stats;
+            await _characterEndpoint.PostCharacter(combined);
         }
         public string ViewName
         {
@@ -535,6 +557,89 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 NotifyOfPropertyChange(() => _addHP);
             }
         }
-
+        public int AddSpeed
+        {
+            get
+            {
+                return _addSpeed;
+            }
+            set
+            {
+                _addSpeed = value;
+                NotifyOfPropertyChange(() => _addSpeed);
+            }
+        }
+        public int AddStatStr
+        {
+            get
+            {
+                return _addStatStr;
+            }
+            set
+            {
+                _addStatStr = value;
+                NotifyOfPropertyChange(() => _addStatStr);
+            }
+        }
+        public int AddStatDex
+        {
+            get
+            {
+                return _addStatDex;
+            }
+            set
+            {
+                _addStatDex = value;
+                NotifyOfPropertyChange(() => _addStatDex);
+            }
+        }
+        public int AddStatCon
+        {
+            get
+            {
+                return _addStatCon;
+            }
+            set
+            {
+                _addStatCon = value;
+                NotifyOfPropertyChange(() => _addStatCon);
+            }
+        }
+        public int AddStatInt
+        {
+            get
+            {
+                return _addStatInt;
+            }
+            set
+            {
+                _addStatInt = value;
+                NotifyOfPropertyChange(() => _addStatInt);
+            }
+        }
+        public int AddStatWis
+        {
+            get
+            {
+                return _addStatWis;
+            }
+            set
+            {
+                _addStatWis = value;
+                NotifyOfPropertyChange(() => _addStatWis);
+            }
+        }
+        public int AddStatCha
+        {
+            get
+            {
+                return _addStatCha;
+            }
+            set
+            {
+                _addStatCha = value;
+                NotifyOfPropertyChange(() => _addStatCha);
+            }
+        }
     }
 }

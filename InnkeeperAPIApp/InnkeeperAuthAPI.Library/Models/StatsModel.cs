@@ -19,5 +19,8 @@ namespace InnkeeperAuthAPI.Library.Models
         public int ArmorClass { get; set; }
         public int Speed { get; set; }
         public int Skills { get; set; }
+        public string UserId { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
     }
 }

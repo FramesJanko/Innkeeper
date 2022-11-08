@@ -49,6 +49,7 @@
     <Compile Include="DataAccess\StatsData.cs" />
     <Compile Include="Models\CharacterDBModel.cs" />
     <Compile Include="Models\CharacterModel.cs" />
+    <Compile Include="Models\CombinedCharacterStats.cs" />
     <Compile Include="Models\StatsModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

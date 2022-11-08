@@ -20,5 +20,28 @@ namespace InnkeeperAuthAPI.Library.DataAccess
 
             return output;
         }
+        public void PostStats(StatsModel statsModel)
+        {
+            using (SqlDataAccess sql = new SqlDataAccess())
+            {
+                try
+                {
+                    sql.StartTransaction("azureInnkeeperData");
+
+
+                    sql.SaveDataInTransaction("dbo.spInsertStats", new { str = statsModel.Strength, dex = statsModel.Dexterity, con = statsModel.Constitution, @int = statsModel.Intelligence, wis = statsModel.Wisdom, cha = statsModel.Charisma, hp = statsModel.Health, ac = statsModel.ArmorClass, speed = statsModel.Speed, UserId = statsModel.UserId});
+                    int statsId = sql.LoadDataInTransaction<int, dynamic>("spLookupStatsId", new { statsModel.UserId, statsModel.CreatedDate }).FirstOrDefault();
+
+                    sql.SaveDataInTransaction("dbo.spInsertCharacterStatsId", new { statsId });
+                    sql.CommitTransaction();
+                    
+                }
+                catch
+                {
+                    sql.RollbackTransaction();
+                    throw;
+                }
+            }
+        }
     }
 }

@@ -28,9 +28,10 @@ namespace InnkeeperAuthAPI.Controllers
         }
 
         // POST api/<controller>
-        public void Post(CharacterModel character)
+        public void Post(CombinedCharacterStats character)
         {
-            Console.WriteLine();
+            CharacterData data = new CharacterData();
+            data.PostCharacter(character);
         }
 
         // PUT api/<controller>/5

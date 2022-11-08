@@ -19,19 +19,26 @@ namespace InnkeeperAuthAPI.Library.DataAccess
             return output;
         }
 
-        public void PostCharacter(CharacterModel characterModel)
+        public void PostCharacter(CombinedCharacterStats characterModel)
         {
             using (SqlDataAccess sql = new SqlDataAccess())
             {
                 try
                 {
                     sql.StartTransaction("azureInnkeeperData");
-                    sql.SaveDataInTransaction("dbo.spInsertCharacter", characterModel);
-
+                    
+                    
+                    sql.SaveDataInTransaction("dbo.spInsertCharacter", new { name = characterModel.Character.Name, characterClass = characterModel.Character.CharacterClass, race = characterModel.Character.Race, level = characterModel.Character.Level, UserId = characterModel.Character.UserId});
+                    sql.SaveDataInTransaction("dbo.spInsertStats", new { str = characterModel.Stats.Strength, dex = characterModel.Stats.Dexterity, con = characterModel.Stats.Constitution, @int = characterModel.Stats.Intelligence, wis = characterModel.Stats.Wisdom, cha = characterModel.Stats.Charisma, hp = characterModel.Stats.Health, ac = characterModel.Stats.ArmorClass, speed = characterModel.Stats.Speed, UserId = characterModel.Stats.UserId, CreatedDate = characterModel.Stats.CreatedDate });
+                    int statsId = sql.LoadDataInTransaction<int, dynamic>("dbo.spStats_LookupId", new { UserId = characterModel.Stats.UserId, CreatedDate = characterModel.Stats.CreatedDate }).FirstOrDefault();
+                    int characterId = sql.LoadDataInTransaction<int, dynamic>("dbo.spCharacter_LookupId", new { UserId = characterModel.Character.UserId, Name = characterModel.Character.Name }).FirstOrDefault();
+                    sql.SaveDataInTransaction("dbo.spInsertCharacterStatsId", new { statsId, characterId });
+                    //sql.CommitTransaction();
                 }
                 catch
                 {
-
+                    sql.RollbackTransaction();
+                    throw;
                 }
             }
         }
