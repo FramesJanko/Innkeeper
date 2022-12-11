@@ -250,7 +250,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
         {
             get
             {
-                string viewLevel = SelectedCharacter != null ? SelectedCharacter.Level.ToString() : "";
+                string viewLevel = SelectedCharacter != null ? "Level " + SelectedCharacter.Level.ToString() : "";
                 return viewLevel;
             }
         }
@@ -266,7 +266,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
         {
             get
             {
-                string viewClass = SelectedCharacter != null ? $"Level {SelectedCharacter.CharacterClass}" : "";
+                string viewClass = SelectedCharacter != null ? $" {SelectedCharacter.CharacterClass}" : "";
                 return viewClass;
             }
         }
