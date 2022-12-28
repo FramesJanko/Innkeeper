@@ -17,6 +17,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
         private IStatsEndpoint _statsEndpoint;
         private BindingList<CharacterModel> _characterList;
         private CharacterModel _selectedCharacter;
+        private CharacterModel _editedCharacter;
         private BindingList<StatsModel> _statsList;
         private StatsModel _selectedStats;
         private int _proficiencyBonus;
@@ -72,12 +73,25 @@ namespace InnkeeperWPFUserInterface.ViewModels
 
                 NotifyOfPropertyChange(() => SelectedCharacter);
                 NotifyOfPropertyChange(() => IsViewCharVisible);
+                NotifyOfPropertyChange(() => CanEditCharacter);
                 NotifyOfPropertyChange(() => ViewName);
                 NotifyOfPropertyChange(() => ViewRace);
                 NotifyOfPropertyChange(() => ViewLevel);
                 NotifyOfPropertyChange(() => ViewClass);
                 
                 Console.WriteLine("Selected a character");
+            }
+        }
+        public CharacterModel EditedCharacter
+        {
+            get
+            {
+                return _editedCharacter;
+            }
+            set
+            {
+                _editedCharacter = value;
+
             }
         }
         public StatsModel SelectedStats
@@ -158,6 +172,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
 		public void AddCharacter()
 		{
             SelectedCharacter = null;
+            EditedCharacter = null;
 
 		}
 
@@ -191,14 +206,46 @@ namespace InnkeeperWPFUserInterface.ViewModels
         {
             get
             {
-                bool output = true;
+                bool output = false;
                 //check to see if a character is selected
+                if (SelectedCharacter != null)
+                {
+                    output = true;
+                }
                 return output;
             }
         }
         public void EditCharacter()
         {
+            AddName = SelectedCharacter.Name;
+            AddClass = SelectedCharacter.CharacterClass;
+            AddRace = SelectedCharacter.Race;
+            AddLevel = SelectedCharacter.Level;
+            AddStatStr = SelectedStats.Strength;
+            AddStatDex = SelectedStats.Dexterity;
+            AddStatCon = SelectedStats.Constitution;
+            AddStatInt = SelectedStats.Intelligence;
+            AddStatWis = SelectedStats.Wisdom;
+            AddStatCha = SelectedStats.Charisma;
+            AddSpeed = SelectedStats.Speed;
+            AddAC = SelectedStats.ArmorClass;
+            AddHP = SelectedStats.Health;
+            EditedCharacter = SelectedCharacter;
+            SelectedCharacter = null;
 
+            NotifyOfPropertyChange(() => AddName);
+            NotifyOfPropertyChange(() => AddClass);
+            NotifyOfPropertyChange(() => AddRace);
+            NotifyOfPropertyChange(() => AddLevel);
+            NotifyOfPropertyChange(() => AddStatStr);
+            NotifyOfPropertyChange(() => AddStatDex);
+            NotifyOfPropertyChange(() => AddStatCon);
+            NotifyOfPropertyChange(() => AddStatInt);
+            NotifyOfPropertyChange(() => AddStatWis);
+            NotifyOfPropertyChange(() => AddStatCha);
+            NotifyOfPropertyChange(() => AddSpeed);
+            NotifyOfPropertyChange(() => AddAC);
+            NotifyOfPropertyChange(() => AddHP);
         }
         public bool CanDeleteCharacter
         {
@@ -215,28 +262,60 @@ namespace InnkeeperWPFUserInterface.ViewModels
         }
         public async Task AddButton()
         {
-            CharacterModel character = new CharacterModel();
-            character.Name = AddName;
-            character.CharacterClass = AddClass;
-            character.Race = AddRace;
-            character.Level = AddLevel;
-            character.UserId = _apiHelper.LoggedInUser.Id;
-            StatsModel stats = new StatsModel();
-            stats.Strength = AddStatStr;
-            stats.Dexterity = AddStatDex;
-            stats.Constitution = AddStatCon;
-            stats.Intelligence = AddStatInt;
-            stats.Wisdom = AddStatWis;
-            stats.Charisma = AddStatCha;
-            stats.Speed = AddSpeed;
-            stats.ArmorClass = AddAC;
-            stats.Health = AddHP;
-            stats.UserId = _apiHelper.LoggedInUser.Id;
-            stats.CreatedDate = DateTime.Now;
-            CombinedCharacterStats combined = new CombinedCharacterStats();
-            combined.character = character;
-            combined.stats = stats;
-            await _characterEndpoint.PostCharacter(combined);
+            if(EditedCharacter == null)
+            {
+                CharacterModel character = new CharacterModel();
+                character.Name = AddName;
+                character.CharacterClass = AddClass;
+                character.Race = AddRace;
+                character.Level = AddLevel;
+                character.UserId = _apiHelper.LoggedInUser.Id;
+                character.StatsId = StatsList.Count + 1;
+                CharacterList.Add(character);
+                StatsModel stats = new StatsModel();
+                stats.Strength = AddStatStr;
+                stats.Dexterity = AddStatDex;
+                stats.Constitution = AddStatCon;
+                stats.Intelligence = AddStatInt;
+                stats.Wisdom = AddStatWis;
+                stats.Charisma = AddStatCha;
+                stats.Speed = AddSpeed;
+                stats.ArmorClass = AddAC;
+                stats.Health = AddHP;
+                stats.UserId = _apiHelper.LoggedInUser.Id;
+                stats.CreatedDate = DateTime.Now;
+                stats.ModifiedDate = DateTime.Now;
+                stats.Id = StatsList.Count + 1;
+                StatsList.Add(stats);
+                CombinedCharacterStats combined = new CombinedCharacterStats();
+                combined.character = character;
+                combined.stats = stats;
+                await _characterEndpoint.PostCharacter(combined);
+            }
+            else if(EditedCharacter != null)
+            {
+                SelectedCharacter = EditedCharacter;
+                EditedCharacter = null;
+                SelectedCharacter.Name = AddName;
+                SelectedCharacter.CharacterClass = AddClass;
+                SelectedCharacter.Race = AddRace;
+                SelectedCharacter.Level = AddLevel;
+                SelectedCharacter.UserId = _apiHelper.LoggedInUser.Id;
+                SelectedStats.Strength = AddStatStr;
+                SelectedStats.Dexterity = AddStatDex;
+                SelectedStats.Constitution = AddStatCon;
+                SelectedStats.Intelligence = AddStatInt;
+                SelectedStats.Wisdom = AddStatWis;
+                SelectedStats.Charisma = AddStatCha;
+                SelectedStats.Speed = AddSpeed;
+                SelectedStats.ArmorClass = AddAC;
+                SelectedStats.Health = AddHP;
+                SelectedStats.UserId = _apiHelper.LoggedInUser.Id;
+                SelectedStats.ModifiedDate = DateTime.Now;
+                int index = CharacterList.IndexOf(SelectedCharacter);
+                CharacterList[index] = SelectedCharacter;
+            }
+            
         }
         public string ViewName
         {
