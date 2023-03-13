@@ -314,6 +314,10 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 SelectedStats.ModifiedDate = DateTime.Now;
                 int index = CharacterList.IndexOf(SelectedCharacter);
                 CharacterList[index] = SelectedCharacter;
+                CombinedCharacterStats combined = new CombinedCharacterStats();
+                combined.character = SelectedCharacter;
+                combined.stats= SelectedStats;
+                await _characterEndpoint.UpdateCharacter(combined);
             }
             
         }

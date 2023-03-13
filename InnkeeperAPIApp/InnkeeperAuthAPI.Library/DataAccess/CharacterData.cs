@@ -42,5 +42,22 @@ namespace InnkeeperAuthAPI.Library.DataAccess
                 }
             }
         }
+        public void UpdateCharacter(CombinedCharacterStats characterModel)
+        {
+            using (SqlDataAccess sql = new SqlDataAccess())
+            {
+                try
+                {
+                    sql.StartTransaction("azureInnkeeperData");
+                    sql.SaveDataInTransaction("dbo.spCharacter_Update", new { Id = characterModel.Character.Id, Name = characterModel.Character.Name, CharacterClass = characterModel.Character.CharacterClass, race = characterModel.Character.Race, level = characterModel.Character.Level, ModifiedDate = characterModel.Stats.ModifiedDate });
+                    //sql.CommitTransaction();
+                }
+                catch
+                {
+                    sql.RollbackTransaction();
+                    throw;
+                }
+            }
+        }
     }
 }
