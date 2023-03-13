@@ -47,5 +47,19 @@ namespace InnkeeperWPFUserInterface.Library.API
                 }
             }
         }
+        public async Task UpdateCharacter(CombinedCharacterStats character)
+        {
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.PostAsJsonAsync("/api/Characters/Update", character))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
     }
 }

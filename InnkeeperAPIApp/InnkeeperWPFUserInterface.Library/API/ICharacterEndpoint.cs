@@ -8,5 +8,6 @@ namespace InnkeeperWPFUserInterface.Library.API
     {
         Task<List<CharacterModel>> GetAll();
         Task PostCharacter(CombinedCharacterStats character);
+        Task UpdateCharacter(CombinedCharacterStats character);
     }
 }

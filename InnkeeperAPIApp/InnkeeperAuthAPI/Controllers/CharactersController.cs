@@ -28,10 +28,19 @@ namespace InnkeeperAuthAPI.Controllers
         }
 
         // POST api/<controller>
+        [HttpPost]
         public void Post(CombinedCharacterStats character)
         {
             CharacterData data = new CharacterData();
             data.PostCharacter(character);
+        }
+
+        [Route("api/Characters/Update")]
+        [HttpPost]
+        public void Update(CombinedCharacterStats character)
+        {
+            CharacterData data = new CharacterData();
+            data.UpdateCharacter(character);
         }
 
         // PUT api/<controller>/5
