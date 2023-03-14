@@ -74,6 +74,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 NotifyOfPropertyChange(() => SelectedCharacter);
                 NotifyOfPropertyChange(() => IsViewCharVisible);
                 NotifyOfPropertyChange(() => CanEditCharacter);
+                NotifyOfPropertyChange(() => CanRetireCharacter);
                 NotifyOfPropertyChange(() => ViewName);
                 NotifyOfPropertyChange(() => ViewRace);
                 NotifyOfPropertyChange(() => ViewLevel);
@@ -247,18 +248,23 @@ namespace InnkeeperWPFUserInterface.ViewModels
             NotifyOfPropertyChange(() => AddAC);
             NotifyOfPropertyChange(() => AddHP);
         }
-        public bool CanDeleteCharacter
+        public bool CanRetireCharacter
         {
             get
             {
-                bool output = true;
-                //check to see if a character is selected
-                return output;
+                return SelectedCharacter != null;
             }
         }
-        public void DeleteCharacter()
+        public async void RetireCharacter()
         {
-
+            CombinedCharacterStats combined = new CombinedCharacterStats();
+            SelectedCharacter.Retired = true;
+            SelectedStats.ModifiedDate = DateTime.Now;
+            combined.character = SelectedCharacter;
+            combined.stats = SelectedStats;
+            CharacterList.Remove(combined.character);
+            StatsList.Remove(combined.stats);
+            await _characterEndpoint.UpdateCharacter(combined);
         }
         public async Task AddButton()
         {

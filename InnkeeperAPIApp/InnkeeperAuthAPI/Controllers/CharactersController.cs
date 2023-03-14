@@ -22,9 +22,10 @@ namespace InnkeeperAuthAPI.Controllers
         }
 
         // GET api/<controller>/5
-        public string Get(int id)
+        public List<CharacterModel> Get(string id)
         {
-            return "value";
+            CharacterData data = new CharacterData();
+            return data.GetCharactersForUser(id);
         }
 
         // POST api/<controller>

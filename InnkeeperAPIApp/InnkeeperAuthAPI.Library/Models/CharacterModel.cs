@@ -15,6 +15,7 @@ namespace InnkeeperAuthAPI.Library.Models
         public int Level { get; set; }
         public string UserId { get; set; }
         public int StatsId { get; set; }
+        public bool Retired { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
     }

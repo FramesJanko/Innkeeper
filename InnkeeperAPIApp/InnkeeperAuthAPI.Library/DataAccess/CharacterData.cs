@@ -19,6 +19,17 @@ namespace InnkeeperAuthAPI.Library.DataAccess
             return output;
         }
 
+        public List<CharacterModel> GetCharactersForUser(string UserId)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+
+            var p = new { UserId = UserId };
+
+            var output = sql.LoadData<CharacterModel, dynamic>("spGetCharactersForUser", p, "azureInnkeeperData");
+
+            return output;
+        }
+
         public void PostCharacter(CombinedCharacterStats characterModel)
         {
             using (SqlDataAccess sql = new SqlDataAccess())
@@ -49,7 +60,7 @@ namespace InnkeeperAuthAPI.Library.DataAccess
                 try
                 {
                     sql.StartTransaction("azureInnkeeperData");
-                    sql.SaveDataInTransaction("dbo.spCharacter_Update", new { Id = characterModel.Character.Id, Name = characterModel.Character.Name, CharacterClass = characterModel.Character.CharacterClass, race = characterModel.Character.Race, level = characterModel.Character.Level, ModifiedDate = characterModel.Stats.ModifiedDate });
+                    sql.SaveDataInTransaction("dbo.spCharacter_Update", new { Id = characterModel.Character.Id, Name = characterModel.Character.Name, CharacterClass = characterModel.Character.CharacterClass, Race = characterModel.Character.Race, Level = characterModel.Character.Level, Retired = characterModel.Character.Retired, ModifiedDate = characterModel.Stats.ModifiedDate });
                     sql.SaveDataInTransaction("dbo.spStats_Update", new { Id = characterModel.Stats.Id, Strength = characterModel.Stats.Strength, Dexterity = characterModel.Stats.Dexterity, Constitution = characterModel.Stats.Constitution, Intelligence = characterModel.Stats.Intelligence, Wisdom = characterModel.Stats.Wisdom, Charisma = characterModel.Stats.Charisma, Health = characterModel.Stats.Health, ArmorClass = characterModel.Stats.ArmorClass, Speed = characterModel.Stats.Speed, Skills = characterModel.Stats.Skills, ModifiedDate = characterModel.Stats.ModifiedDate });
                     //sql.CommitTransaction();
                 }

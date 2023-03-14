@@ -19,7 +19,7 @@ namespace InnkeeperWPFUserInterface.Library.API
 
         public async Task<List<CharacterModel>> GetAll()
         {
-            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync("api/Characters"))
+            using (HttpResponseMessage response = await _apiHelper.ApiClient.GetAsync($"api/Characters/{_apiHelper.LoggedInUser.Id}"))
             {
                 if (response.IsSuccessStatusCode)
                 {

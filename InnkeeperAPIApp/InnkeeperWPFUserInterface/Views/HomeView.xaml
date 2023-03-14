@@ -38,7 +38,7 @@
         <Button Grid.Row="2" Grid.Column="2" Height="35" 
                 Width="150" x:Name="EditCharacter" Content="Edit" Margin="20 0" />
         <Button Grid.Row="3" Grid.Column="2" Height="35" 
-                Width="150" x:Name="DeleteCharacter" Content="Delete" Margin="20 0" />
+                Width="150" x:Name="RetireCharacter" Content="Retire" Margin="20 0" />
         <DockPanel x:Name="AddCharacterPane"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" 
                    Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="{Binding IsAddCharVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="0">
