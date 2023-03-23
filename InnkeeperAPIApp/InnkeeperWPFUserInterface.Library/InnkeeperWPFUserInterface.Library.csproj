@@ -62,6 +62,7 @@
     <Compile Include="Models\LoggedInUserModel.cs" />
     <Compile Include="Models\SavingThrowModel.cs" />
     <Compile Include="Models\StatsModel.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

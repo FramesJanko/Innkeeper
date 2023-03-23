@@ -69,6 +69,26 @@ namespace InnkeeperWPFUserInterface.Library.API
             }
         }
 
+        public async Task<AuthenticatedUser> AuthenticateCustom(string username, string password)
+        {
+            UserLogin user = new UserLogin();
+            user.Username = username;
+            user.Password = password;
+
+            using (HttpResponseMessage response = await _apiClient.PostAsJsonAsync("/api/User/Authenticate", user))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content?.ReadAsAsync<AuthenticatedUser>();
+                    return result;
+                }
+                else
+                {
+                    throw new Exception(response.ReasonPhrase);
+                }
+            }
+        }
+
         public async Task GetLoggedInUser(string token)
         {
             _apiClient.DefaultRequestHeaders.Clear();

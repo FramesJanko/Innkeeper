@@ -20,5 +20,39 @@ namespace InnkeeperAuthAPI.Library.DataAccess
 
             return output;
         }
+
+        public List<UserModel> GetUserByNameAndPassword(string Name, string Password)
+        {
+            SqlDataAccess sql = new SqlDataAccess();
+
+            string passwordHash = hashstring(Password);
+            
+            string nameHash = hashstring(Name);
+
+            var p = new { username = nameHash, passwordhash = passwordHash };
+
+            var output = sql.LoadData<UserModel, dynamic>("dbo.spUserLookupByNamePassword", p, "azureInnkeeperData");
+
+            return output;
+        }
+
+        private string hashstring(string stringToHash)
+        {
+            string alphabetString = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+";
+            char[] alphabet = alphabetString.ToCharArray();
+            char[] resultHash = stringToHash.ToCharArray();
+            string key = "TIistheBest12#";
+            for(int i = 0; i < resultHash.Length; i++)
+            {
+                if (alphabet.Contains(resultHash[i]))
+                {
+                    int index = Array.IndexOf(alphabet, resultHash[i]);
+                    resultHash[i] = alphabet[(index + Array.IndexOf(alphabet, key[i % key.Length])) % alphabet.Length];
+                }
+                
+            }
+            string result = string.Concat(resultHash);
+            return result;
+        }
     }
 }

@@ -91,7 +91,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
             try
             {
                 ErrorMessage = "";
-                var result = await _apiHelper.Authenticate(UserName, Password);
+                var result = await _apiHelper.AuthenticateCustom(UserName, Password);
 
                 //capture more information about the user
                 await _apiHelper.GetLoggedInUser(result.Access_Token);

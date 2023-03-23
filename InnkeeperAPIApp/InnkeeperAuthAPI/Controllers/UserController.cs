@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace InnkeeperAuthAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UserController : ApiController
     {
         // GET: api/User
@@ -22,6 +22,15 @@ namespace InnkeeperAuthAPI.Controllers
 
             return data.GetUserById(id).First();
             
+        }
+
+        [Route("api/User/Authenticate")]
+        [HttpPost]
+        public UserModel GetUserById(UserModel user)
+        {
+            UserData data = new UserData();
+
+            return data.GetUserByNameAndPassword(user.Username, user.Password).FirstOrDefault();
         }
 
         // GET: api/User/5

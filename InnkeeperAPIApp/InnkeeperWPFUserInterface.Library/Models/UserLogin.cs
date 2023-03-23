@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InnkeeperAuthAPI.Library.Models
+namespace InnkeeperWPFUserInterface.Library.Models
 {
-    public class UserModel
+    public class UserLogin
     {
         public string Id { get; set; }
         public string Username { get; set; }
