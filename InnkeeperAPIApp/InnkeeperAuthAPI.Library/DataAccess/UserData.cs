@@ -36,9 +36,23 @@ namespace InnkeeperAuthAPI.Library.DataAccess
             return output;
         }
 
+        public void CreateUser(UserModel user)
+        {
+            //@Id NVARCHAR(128),
+            //@Username NVARCHAR(50),
+            //@PasswordHash NVARCHAR(128),
+            //@FirstName NVARCHAR(50),
+            //@LastName NVARCHAR(50)
+            SqlDataAccess sql = new SqlDataAccess();
+
+            var p = new { Id = hashstring(user.Username), Username = user.Username, PasswordHash = hashstring(user.Password), FirstName = user.FirstName, LastName = user.LastName };
+
+            sql.SaveData("dbo.spRegisterUser", p, "azureInnkeeperData");
+        }
+
         private string hashstring(string stringToHash)
         {
-            string alphabetString = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+";
+            string alphabetString = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-=!@#$%^&*()_+";
             char[] alphabet = alphabetString.ToCharArray();
             char[] resultHash = stringToHash.ToCharArray();
             string key = "TIistheBest12#";

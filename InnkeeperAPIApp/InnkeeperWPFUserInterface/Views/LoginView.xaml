@@ -19,6 +19,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 0 0 20"
@@ -45,10 +46,27 @@
         </TextBlock>
         <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="2" MinWidth="150"
                      Margin="0 0 0 10" />
+        <!-- First and Last Name fields -->
+        <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBlock Margin="0 0 0 10">
+            First Name
+            </TextBlock>
+            <TextBox x:Name="FirstName" MinWidth="150" 
+                 Margin="0 0 0 10" />
+            <TextBlock Margin="0 0 0 10">
+            Last Name
+            </TextBlock>
+            <PasswordBox x:Name="LastName" MinWidth="150"
+                     Margin="0 0 0 10" />
+        </DockPanel>
         <!-- Login row -->
-        <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Padding="20 5"
+        <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Padding="20 5"
                 HorizontalAlignment="Center" x:Name="Login">
             Log In
+        </Button>
+        <Button Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="1" Padding="20 5"
+                HorizontalAlignment="Center" x:Name="Register">
+            Register
         </Button>
     </Grid>
 </UserControl>
