@@ -8,6 +8,7 @@ namespace InnkeeperWPFUserInterface.Library.Models
         string FirstName { get; set; }
         string Id { get; set; }
         string LastName { get; set; }
+        string UserName { get; set; }
         string Token { get; set; }
     }
 }

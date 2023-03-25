@@ -39,5 +39,14 @@ namespace InnkeeperAuthAPI.Controllers
             return "value";
         }
 
+        [Route("api/User/Register")]
+        [HttpPost]
+        public void RegisterUser(UserModel user)
+        {
+            UserData data = new UserData();
+
+            data.CreateUser(user);
+        }
+
     }
 }

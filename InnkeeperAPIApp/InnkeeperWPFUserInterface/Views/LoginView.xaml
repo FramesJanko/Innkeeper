@@ -47,18 +47,23 @@
         <PasswordBox x:Name="Password" Grid.Row="3" Grid.Column="2" MinWidth="150"
                      Margin="0 0 0 10" />
         <!-- First and Last Name fields -->
-        <DockPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2">
-            <TextBlock Margin="0 0 0 10">
-            First Name
-            </TextBlock>
-            <TextBox x:Name="FirstName" MinWidth="150" 
+        <StackPanel Orientation="Vertical" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Visibility="{Binding IsRegisterVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0 0 20 10">
+            First Name:
+                </TextBlock>
+                <TextBox x:Name="FirstName" MinWidth="175" 
                  Margin="0 0 0 10" />
-            <TextBlock Margin="0 0 0 10">
-            Last Name
-            </TextBlock>
-            <PasswordBox x:Name="LastName" MinWidth="150"
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="0 0 22 10">
+            Last Name:
+                </TextBlock>
+                <PasswordBox x:Name="LastName" MinWidth="175"
                      Margin="0 0 0 10" />
-        </DockPanel>
+            </StackPanel>
+            
+        </StackPanel>
         <!-- Login row -->
         <Button Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="1" Padding="20 5"
                 HorizontalAlignment="Center" x:Name="Login">

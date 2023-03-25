@@ -24,6 +24,7 @@ namespace InnkeeperWPFUserInterface.Library.API
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsAsync<List<CharacterModel>>();
+                    //if(result.Count == 0)
                     return result;
                 }
                 else

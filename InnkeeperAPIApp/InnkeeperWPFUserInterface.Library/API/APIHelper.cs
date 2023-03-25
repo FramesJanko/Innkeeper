@@ -69,7 +69,7 @@ namespace InnkeeperWPFUserInterface.Library.API
             }
         }
 
-        public async Task<AuthenticatedUser> AuthenticateCustom(string username, string password)
+        public async Task<UserLogin> AuthenticateCustom(string username, string password)
         {
             UserLogin user = new UserLogin();
             user.Username = username;
@@ -79,7 +79,7 @@ namespace InnkeeperWPFUserInterface.Library.API
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content?.ReadAsAsync<AuthenticatedUser>();
+                    var result = await response.Content?.ReadAsAsync<UserLogin>();
                     return result;
                 }
                 else
@@ -89,29 +89,57 @@ namespace InnkeeperWPFUserInterface.Library.API
             }
         }
 
-        public async Task GetLoggedInUser(string token)
+        public async Task RegisterUser(string username, string password, string firstname, string lastname)
         {
-            _apiClient.DefaultRequestHeaders.Clear();
-            _apiClient.DefaultRequestHeaders.Accept.Clear();
-            _apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+            UserLogin user = new UserLogin();
+            user.Username = username;
+            user.Password = password;
+            user.FirstName = firstname;
+            user.LastName = lastname;
 
-            using (HttpResponseMessage response = await _apiClient.GetAsync("api/User"))
+            using (HttpResponseMessage response = await _apiClient.PostAsJsonAsync("/api/User/Register", user))
             {
                 if (response.IsSuccessStatusCode)
                 {
-                    var result = await response.Content.ReadAsAsync<LoggedInUserModel>();
-                    _loggedInUser.CreatedDate = result.CreatedDate;
-                    _loggedInUser.FirstName = result.FirstName;
-                    _loggedInUser.LastName = result.LastName;
-                    _loggedInUser.Id = result.Id;
-                    _loggedInUser.Token = token;
+
                 }
                 else
                 {
                     throw new Exception(response.ReasonPhrase);
                 }
             }
+        }
+
+        public void GetLoggedInUser(UserLogin user)
+        {
+            //_apiClient.DefaultRequestHeaders.Clear();
+            //_apiClient.DefaultRequestHeaders.Accept.Clear();
+            //_apiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //_apiClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            //using (HttpResponseMessage response = await _apiClient.GetAsync("api/User"))
+            //{
+            //    if (response.IsSuccessStatusCode)
+            //    {
+            //        var result = await response.Content.ReadAsAsync<LoggedInUserModel>();
+            //        _loggedInUser.CreatedDate = result.CreatedDate;
+            //        _loggedInUser.FirstName = result.FirstName;
+            //        _loggedInUser.LastName = result.LastName;
+            //        _loggedInUser.Id = result.Id;
+            //        _loggedInUser.Token = token;
+            //    }
+            //    else
+            //    {
+            //        throw new Exception(response.ReasonPhrase);
+            //    }
+            //}
+
+            
+            _loggedInUser.CreatedDate = user.CreatedDate;
+            _loggedInUser.FirstName = user.FirstName;
+            _loggedInUser.LastName = user.LastName;
+            _loggedInUser.UserName = user.Username;
+            _loggedInUser.Id = user.Id;
         }
     }
 }

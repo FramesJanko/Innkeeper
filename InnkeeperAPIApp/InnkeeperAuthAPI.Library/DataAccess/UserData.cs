@@ -27,9 +27,7 @@ namespace InnkeeperAuthAPI.Library.DataAccess
 
             string passwordHash = hashstring(Password);
             
-            string nameHash = hashstring(Name);
-
-            var p = new { username = nameHash, passwordhash = passwordHash };
+            var p = new { username = Name, passwordhash = passwordHash };
 
             var output = sql.LoadData<UserModel, dynamic>("dbo.spUserLookupByNamePassword", p, "azureInnkeeperData");
 

@@ -2,6 +2,7 @@
 using InnkeeperWPFUserInterface.EventModels;
 using InnkeeperWPFUserInterface.Helpers;
 using InnkeeperWPFUserInterface.Library.API;
+using InnkeeperWPFUserInterface.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,20 @@ namespace InnkeeperWPFUserInterface.ViewModels
         }
 
         private string _errorMessage;
+        private string _firstName;
+        private string _lastName;
+        private bool _registering;
 
+        public bool Registering
+        {
+            get { return _registering; }
+            set
+            {
+                _registering = value;
+                NotifyOfPropertyChange(() => Registering);
+                NotifyOfPropertyChange(() => CanRegister);
+            }
+        }
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -73,6 +87,28 @@ namespace InnkeeperWPFUserInterface.ViewModels
             }
         }
 
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                _firstName = value;
+                NotifyOfPropertyChange(() => FirstName);
+                NotifyOfPropertyChange(() => CanRegister);
+            }
+        }
+        
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                _lastName = value;
+                NotifyOfPropertyChange(() => LastName);
+                NotifyOfPropertyChange(() => CanRegister);
+            }
+        }
+
         public bool CanLogIn
         {
             get
@@ -86,15 +122,48 @@ namespace InnkeeperWPFUserInterface.ViewModels
             }
         }
 
+        public bool CanRegister
+        {
+            get
+            {
+                bool output = false;
+                if (!Registering)
+                {
+                    output = true;
+                    return output;
+
+                }
+                else
+                {
+                    if (UserName?.Length > 0 && Password?.Length > 0 && FirstName?.Length > 0 && LastName?.Length > 0)
+                        output = true; 
+                    return output;
+                }
+            }
+        }
+
+        public async Task Register()
+        {
+            if (!Registering)
+            {
+                Registering = true;
+            }
+            else
+            {
+                await InitiateRegister();
+            }
+        }
+
         public async Task LogIn()
         {
             try
             {
                 ErrorMessage = "";
-                var result = await _apiHelper.AuthenticateCustom(UserName, Password);
+                UserLogin result = await _apiHelper.AuthenticateCustom(UserName, Password);
+                //result.Id = "40d85781-3985-4f81-b27f-ae8aac34ae6e";
 
                 //capture more information about the user
-                await _apiHelper.GetLoggedInUser(result.Access_Token);
+                _apiHelper.GetLoggedInUser(result);
 
                 await _events.PublishOnUIThreadAsync(new LogOnEvent());
             }
@@ -105,6 +174,18 @@ namespace InnkeeperWPFUserInterface.ViewModels
             
         }
 
-
+        public async Task InitiateRegister()
+        {
+            try
+            {
+                ErrorMessage = "";
+                
+                await _apiHelper.RegisterUser(UserName, Password, FirstName, LastName);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+        }
     }
 }
