@@ -126,7 +126,7 @@
             </Border>
         </DockPanel>
         <DockPanel x:Name="ViewCharacterPane"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" 
-                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="Collapsed">
+                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="{Binding IsViewCharVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
             <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="0">
                 <DockPanel LastChildFill="False"  MinHeight="200" MinWidth="100" 
                    Background="WhiteSmoke">
