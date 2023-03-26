@@ -64,13 +64,26 @@
                         <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="5" 
                            Fill="DarkGray" Height="100" Width="100"/>
                         <DockPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="3" Margin="0 0 5 0">
-                            <TextBox x:Name="AddName"  DockPanel.Dock="Top" FontSize="18" MaxWidth="200" Text="Name" TextWrapping="Wrap"/>
-                            <TextBox x:Name="AddLevel" DockPanel.Dock="Left" FontSize="16" Text="Level" 
+                            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                                <TextBlock x:Name="AddNameLabel" FontSize="18" Text="Name: "/>
+                                <TextBox x:Name="AddName" FontSize="18" MinWidth="170" MaxWidth="200" Text="" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                                <TextBlock x:Name="AddLevelLabel" FontSize="12" Text="Level: "/>
+                                <TextBox x:Name="AddLevel" DockPanel.Dock="Left" FontSize="12" Text="" MinWidth="20"
                            Margin="0 1 5 0" />
-                            <TextBox x:Name="AddRace" DockPanel.Dock="Left" FontSize="16" Text="Race" MaxWidth="100" TextWrapping="Wrap" 
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
+                                <TextBlock x:Name="AddRaceLabel" Text="Race: " FontSize="12"/>
+                                <TextBox x:Name="AddRace" DockPanel.Dock="Left" FontSize="12" Text="" MinWidth="50"  MaxWidth="100" TextWrapping="Wrap" 
                            Margin="0 1 5 0" />
-                            <TextBox x:Name="AddClass" DockPanel.Dock="Left" FontSize="16" Text="Class" MaxWidth="100" TextWrapping="Wrap"
+                            </StackPanel>
+                            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                                <TextBlock x:Name="AddClassLabel" Text="Class: " FontSize="12"/>
+                                <TextBox x:Name="AddClass" DockPanel.Dock="Left" FontSize="12" Text="" MinWidth="50" MaxWidth="100" TextWrapping="Wrap"
                            Margin="0 1 0 0"/>
+                            </StackPanel>
+                            
                         </DockPanel>
                         <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Orientation="Vertical">
                             <TextBox x:Name="AddAC" FontSize="14" Text="Armor Class" 
@@ -113,7 +126,7 @@
             </Border>
         </DockPanel>
         <DockPanel x:Name="ViewCharacterPane"  Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="1" 
-                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="{Binding IsViewCharVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                   Grid.RowSpan="5" Margin="10" MinWidth="250" Visibility="Collapsed">
             <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="2" Padding="0">
                 <DockPanel LastChildFill="False"  MinHeight="200" MinWidth="100" 
                    Background="WhiteSmoke">

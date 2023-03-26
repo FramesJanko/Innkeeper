@@ -35,7 +35,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
             }
         }
 
-        private string _errorMessage;
+        private string _message;
         private string _firstName;
         private string _lastName;
         private bool _isRegisterVisible = false;
@@ -50,23 +50,23 @@ namespace InnkeeperWPFUserInterface.ViewModels
                 NotifyOfPropertyChange(() => CanRegister);
             }
         }
-        public string ErrorMessage
+        public string Message
         {
-            get { return _errorMessage; }
+            get { return _message; }
             set 
             { 
-                _errorMessage = value;
-                NotifyOfPropertyChange(() => ErrorMessage);
-                NotifyOfPropertyChange(() => IsErrorVisible);
+                _message = value;
+                NotifyOfPropertyChange(() => Message);
+                NotifyOfPropertyChange(() => IsMessageVisible);
             }
         }
 
-        public bool IsErrorVisible
+        public bool IsMessageVisible
         {
             get 
             {
                 bool output = false;
-                if(ErrorMessage?.Length > 0)
+                if(Message?.Length > 0)
                 {
                     output = true;
                 }
@@ -142,6 +142,15 @@ namespace InnkeeperWPFUserInterface.ViewModels
             }
         }
 
+        public void Cancel()
+        {
+            UserName = "";
+            Password = "";
+            FirstName = "";
+            LastName = "";
+            IsRegisterVisible = false;
+        }
+
         public async Task Register()
         {
             if (!IsRegisterVisible)
@@ -158,7 +167,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
         {
             try
             {
-                ErrorMessage = "";
+                Message = "";
                 UserLogin result = await _apiHelper.AuthenticateCustom(UserName, Password);
                 //result.Id = "40d85781-3985-4f81-b27f-ae8aac34ae6e";
 
@@ -169,7 +178,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                Message = ex.Message;
             }
             
         }
@@ -178,13 +187,13 @@ namespace InnkeeperWPFUserInterface.ViewModels
         {
             try
             {
-                ErrorMessage = "";
+                Message = "";
                 
                 await _apiHelper.RegisterUser(UserName, Password, FirstName, LastName);
             }
             catch (Exception ex)
             {
-                ErrorMessage = ex.Message;
+                Message = ex.Message;
             }
         }
     }
