@@ -38,15 +38,15 @@ namespace InnkeeperWPFUserInterface.ViewModels
         private string _errorMessage;
         private string _firstName;
         private string _lastName;
-        private bool _registering;
+        private bool _isRegisterVisible = false;
 
-        public bool Registering
+        public bool IsRegisterVisible
         {
-            get { return _registering; }
+            get { return _isRegisterVisible; }
             set
             {
-                _registering = value;
-                NotifyOfPropertyChange(() => Registering);
+                _isRegisterVisible = value;
+                NotifyOfPropertyChange(() => IsRegisterVisible);
                 NotifyOfPropertyChange(() => CanRegister);
             }
         }
@@ -127,7 +127,7 @@ namespace InnkeeperWPFUserInterface.ViewModels
             get
             {
                 bool output = false;
-                if (!Registering)
+                if (!IsRegisterVisible)
                 {
                     output = true;
                     return output;
@@ -144,9 +144,9 @@ namespace InnkeeperWPFUserInterface.ViewModels
 
         public async Task Register()
         {
-            if (!Registering)
+            if (!IsRegisterVisible)
             {
-                Registering = true;
+                IsRegisterVisible = true;
             }
             else
             {

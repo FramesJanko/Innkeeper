@@ -56,11 +56,8 @@ namespace InnkeeperAuthAPI.Library.DataAccess
             string key = "TIistheBest12#";
             for(int i = 0; i < resultHash.Length; i++)
             {
-                if (alphabet.Contains(resultHash[i]))
-                {
-                    int index = Array.IndexOf(alphabet, resultHash[i]);
-                    resultHash[i] = alphabet[(index + Array.IndexOf(alphabet, key[i % key.Length])) % alphabet.Length];
-                }
+                int index = Array.IndexOf(alphabet, resultHash[i]);
+                resultHash[i] = alphabet[(index + Array.IndexOf(alphabet, key[i % key.Length])) % alphabet.Length];
                 
             }
             string result = string.Concat(resultHash);
